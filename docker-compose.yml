@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  mongodb:
+    container_name: database
+    image: mongo:latest
+    environment:
+      - MONGODB_DATABASE="share_prompt"
+    ports:
+      - 27017:27017
