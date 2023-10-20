@@ -10,21 +10,20 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
     })
   ],
+  session: {
+    strategy: 'jwt'
+  },
   callbacks: {
     async session({ session }) {
       const sessionUser = await User.findOne({
         email: session?.user?.email
       })
-
-      session.user = sessionUser;
-
-      console.log(session.user);
+      session.user.id = sessionUser._id.toString();
 
       return session
     },
     async signIn({ profile }) {
-
-
+      console.log(profile);
       try {
         await connectToDb()
 
@@ -35,10 +34,11 @@ const handler = NextAuth({
 
         // if not, create a new user
         if (!userExists) {
+
           await User.create({
             email: profile?.email,
             username: profile?.name?.replace(" ", "").toLowerCase(),
-            image: profile?.image
+            image: profile?.picture
           })
         }
 
@@ -48,7 +48,6 @@ const handler = NextAuth({
 
         return false
       }
-      return ''
     }
   },
 })
