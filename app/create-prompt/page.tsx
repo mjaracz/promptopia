@@ -1,9 +1,9 @@
 'use client';
 
-import { FormEvent, useState, useCallback, FC } from "react";
+import Form from '@components/form';
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Form from '@components/form';
+import { FC, FormEvent, useCallback, useState } from "react";
 
 const CreatePrompt: FC = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -13,7 +13,6 @@ const CreatePrompt: FC = () => {
     tag: '',
   });
   const router = useRouter();
-  console.log(post);
 
   const createPrompt = useCallback(async (e: FormEvent) => {
     e.preventDefault();
@@ -40,7 +39,7 @@ const CreatePrompt: FC = () => {
     } finally {
       setSubmitting(false);
     }
-  }, [post, session, submitting])
+  }, [post, session, router])
 
   return (
     <Form

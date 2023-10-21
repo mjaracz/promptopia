@@ -1,7 +1,7 @@
+import User from '@models/user';
+import { connectToDb } from "@utils/database";
 import NextAuth from "next-auth/next";
 import GoogleProvider from 'next-auth/providers/google';
-import { connectToDb } from "@utils/database";
-import User from '@models/user';
 
 const handler = NextAuth({
   providers: [
@@ -11,7 +11,7 @@ const handler = NextAuth({
     })
   ],
   session: {
-    strategy: 'jwt'
+    strategy: 'database'
   },
   callbacks: {
     async session({ session }) {
