@@ -1,6 +1,6 @@
+import PromptCard from "@components/prompt-card";
 import { FC, MouseEvent } from "react";
 import { Post } from "./form";
-import PromptCard from "@components/prompt-card";
 
 interface PropsPromptCardList {
   data: Post[];
@@ -10,8 +10,23 @@ interface PropsPromptCardList {
 
 const PromptCardList: FC<PropsPromptCardList> = ({ data, handleTagClick, isLoading }) => {
   return (
-    <div className="">
-      <PromptCard isCardPulse={true} prompt="" tag="" />
+    <div className="w-full flex-center flex-col">
+      {isLoading 
+        ? (
+          <>
+            <PromptCard isCardPulse={true} />
+            <PromptCard isCardPulse={true} />
+            <PromptCard isCardPulse={true} />
+          </>
+        )
+        : data.map(post => (
+            <PromptCard
+              key={post._id} 
+              prompt={post.prompt} 
+              tag={post.tag} 
+            />
+          ))
+      }
     </div>
   )
 }

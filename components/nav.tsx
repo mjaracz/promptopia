@@ -1,8 +1,8 @@
 'use client'
-import Link from "next/link"
+import { getProviders, signIn, signOut, useSession } from 'next-auth/react'
 import Image from "next/image"
-import { useState, useEffect, DetailedHTMLProps } from "react"
-import { signIn, signOut, useSession, getProviders, ClientSafeProvider } from 'next-auth/react'
+import Link from "next/link"
+import { useEffect, useState } from "react"
 
 const Nav = () => {
   const { data: session } = useSession();
@@ -19,8 +19,6 @@ const Nav = () => {
 
     handleProviders();
   }, [])
-
-  console.log(`user from session: ${session?.user?.image}`);
 
   return (
     <nav className='flex-between w-full mb-16 pt-3'>

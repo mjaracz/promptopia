@@ -10,7 +10,7 @@ interface PropsForm {
   handleSubmit: FormEventHandler;
 }
 
-export type Post = { prompt: string; tag: string }
+export type Post = { _id: string, prompt: string; tag: string }
 
 const Form: FC<PropsForm> = ({ type, post, submitting, setPost, handleSubmit }) => {
   return (

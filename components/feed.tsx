@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, FC, useCallback, ChangeEvent } from 'react';
+import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react';
 import { Post } from './form';
 import PromptCardList from './prompt-card-list';
 
@@ -15,23 +15,23 @@ const Feed: FC = () => {
 
   }, [])
 
-  const getPromps = async () => {
-    try {
-      setIsLoading(true);
-
-      const responseData: Post[] = await fetch('/api/prompts')
-        .then((res) => res.json())
-        .finally(() => setIsLoading(false));
-      setPromptsList(responseData);
-    }
-    catch (err) {
-      setIsLoading(false)
-      console.warn(err);
-    }
-  }
 
   useEffect(() => {
-    getPromps();
+    const fetchPrompts = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/prompt');
+        const posts = await response.json().finally(() => setIsLoading(false));
+        
+        setPromptsList(posts);
+      }
+      catch (err) {
+        setIsLoading(false)
+        console.warn(err);
+      }
+    }
+
+    fetchPrompts();
   }, [])
   return (
     <section className="feed">
@@ -46,7 +46,11 @@ const Feed: FC = () => {
         />
       </form>
 
-      <PromptCardList data={[]} handleTagClick={() => ({})} />
+      <PromptCardList
+        isLoading={isLoading}
+        data={promptsList} 
+        handleTagClick={() => {}} 
+      />
     </section>
   )
 }
