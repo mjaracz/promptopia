@@ -1,16 +1,16 @@
 import Link from "next/link";
+import { IPrompt } from "@models/prompt";
 import { FC, FormEventHandler } from "react";
 
 
 interface PropsForm {
   type: string;
-  post: Post;
-  setPost: (post: Post) => void;
+  post: IPrompt;
+  setPost: (post: IPrompt) => void;
   submitting: boolean;
   handleSubmit: FormEventHandler;
 }
 
-export type Post = { _id: string, prompt: string; tag: string }
 
 const Form: FC<PropsForm> = ({ type, post, submitting, setPost, handleSubmit }) => {
   return (

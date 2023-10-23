@@ -18,4 +18,11 @@ const UserSchema = new Schema({
 
 const User = models.User || model('User', UserSchema);
 
+export interface IUser {
+  _id: string;
+  email: string;
+  username: string;
+  image: string;
+}
+
 export default User;

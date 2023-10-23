@@ -1,7 +1,7 @@
-import User from '@models/user';
-import { connectToDb } from "@utils/database";
 import NextAuth from "next-auth/next";
 import GoogleProvider from 'next-auth/providers/google';
+import User from '@models/user';
+import { connectToDb } from "@utils/database";
 
 const handler = NextAuth({
   providers: [
@@ -10,9 +10,6 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
     })
   ],
-  session: {
-    strategy: 'database'
-  },
   callbacks: {
     async session({ session }) {
       const sessionUser = await User.findOne({
@@ -23,7 +20,6 @@ const handler = NextAuth({
       return session
     },
     async signIn({ profile }) {
-      console.log(profile);
       try {
         await connectToDb()
 

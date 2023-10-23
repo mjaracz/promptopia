@@ -1,14 +1,14 @@
 'use client';
 
 import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react';
-import { Post } from './form';
+import { IPrompt } from '@models/prompt';
 import PromptCardList from './prompt-card-list';
 
 
 
 const Feed: FC = () => {
   const [searchText, setSearchText] = useState<string>();
-  const [promptsList, setPromptsList] = useState<Post[]>([]);
+  const [promptsList, setPromptsList] = useState<IPrompt[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSearchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +22,7 @@ const Feed: FC = () => {
         setIsLoading(true);
         const response = await fetch('/api/prompt');
         const posts = await response.json().finally(() => setIsLoading(false));
-        
+
         setPromptsList(posts);
       }
       catch (err) {
@@ -32,7 +32,8 @@ const Feed: FC = () => {
     }
 
     fetchPrompts();
-  }, [])
+  }, []);
+
   return (
     <section className="feed">
       <form className="relative w-full flex-center">
@@ -48,8 +49,8 @@ const Feed: FC = () => {
 
       <PromptCardList
         isLoading={isLoading}
-        data={promptsList} 
-        handleTagClick={() => {}} 
+        data={promptsList}
+        handleTagClick={() => { }}
       />
     </section>
   )
