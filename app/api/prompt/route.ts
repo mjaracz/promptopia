@@ -1,12 +1,9 @@
-import Prompt from "@models/prompt";
-import { connectToDb } from "@utils/database"
+import { PromptService } from "./prompt.service";
 
 export const GET = async () => {
   try {
-    await connectToDb();
-    const promptsDataList = await Prompt.find({}).populate('creator');
-
-    return new Response(JSON.stringify(promptsDataList), { status: 200 });
+    const promptsList = await PromptService.getPromptsList();
+    return new Response(JSON.stringify(promptsList), { status: 200 })    
   } catch (err) {
     return new Response(JSON.stringify(err), { status: 500 });
   }
