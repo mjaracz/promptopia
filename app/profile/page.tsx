@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
 
 import Profile from '@components/profile';
 import { IPrompt } from '@models/prompt';
@@ -34,7 +33,7 @@ const MyProfile = () => {
     }
 
     if (session?.user.id) fetchPrompts();
-  }, []);
+  }, [session]);
 
   return (
     <Profile
