@@ -6,12 +6,13 @@ interface PropsPromptCardList {
   data: IPrompt[];
   handleTagClick: (e: MouseEvent) => void;
   isLoading: boolean;
+  isException: boolean;
 }
 
-const PromptCardList: FC<PropsPromptCardList> = ({ data, handleTagClick, isLoading }) => {
+const PromptCardList: FC<PropsPromptCardList> = ({ data, handleTagClick, isLoading, isException }) => {
   return (
     <div className="w-full flex-center flex-col">
-      {isLoading
+      {isLoading || isException
         ? (
           <>
             <PromptCard isCardPulse={true} />
@@ -30,4 +31,4 @@ const PromptCardList: FC<PropsPromptCardList> = ({ data, handleTagClick, isLoadi
   )
 }
 
-export default PromptCardList
+export default PromptCardList;

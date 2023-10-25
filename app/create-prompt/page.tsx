@@ -21,11 +21,6 @@ const CreatePrompt: FC = () => {
     tag: ''
   });
   const router = useRouter();
-  console.log(JSON.stringify({
-    prompt: post?.prompt,
-    userId: session?.user?.id,
-    tag: post?.tag,
-  }))
 
   const createPrompt = useCallback(async (e: FormEvent) => {
     e.preventDefault();

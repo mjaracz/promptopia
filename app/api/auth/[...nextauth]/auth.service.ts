@@ -33,7 +33,7 @@ export class AuthService {
     const sessionUser = await User.findOne({
       email: session?.user?.email
     })
-    session.user.id = sessionUser._id.toString();
+    session.user.name = sessionUser.username;
 
     return session
   }

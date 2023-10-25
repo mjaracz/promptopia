@@ -1,4 +1,5 @@
 import Prompt from "@models/prompt";
+import User from "@models/user";
 import { connectToDb } from "@utils/database";
 
 export class PromptService {
@@ -17,12 +18,14 @@ export class PromptService {
     await connectToDb();
     const promptsDataList = await Prompt.find({}).populate('creator');
 
-    return promptsDataList;    
+    return promptsDataList;
   }
 
-  static async getPromptsByUserId(userId: string) {
+  static async getPromptsByUserId(username: string | null): Promise<typeof Prompt[]> {
+    if (!username) throw new Error('username url query is required');
     await connectToDb();
-    const userPromptsList = await Prompt.find({ creator: userId }).exec();
+    const userCreator = await User.findOne({ username })
+    const userPromptsList = await Prompt.find({ creator: userCreator._id.toString() }).exec();
     if (!userPromptsList.length) throw new Error('prompts not exisit for provide userId');
 
     return userPromptsList;
