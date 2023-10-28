@@ -1,6 +1,6 @@
 import PromptCard from "@components/prompt-card";
-import { FC, MouseEvent } from "react";
 import { IPrompt } from "@models/prompt";
+import { FC, MouseEvent } from "react";
 
 interface PropsPromptCardList {
   data: IPrompt[];
@@ -12,7 +12,7 @@ interface PropsPromptCardList {
 const PromptCardList: FC<PropsPromptCardList> = ({ data, handleTagClick, isLoading, isException }) => {
   return (
     <div className="w-full flex-center flex-col">
-      {isLoading || isException
+      {isLoading || isException || !data.length
         ? (
           <>
             <PromptCard isCardPulse={true} />
