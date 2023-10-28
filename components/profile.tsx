@@ -1,17 +1,34 @@
-import { IPrompt } from '@models/prompt';
 import { FC } from 'react'
+import { IPrompt } from '@models/prompt';
+import PromptCardList from '@components/prompt-card-list';
 
 interface PropsProfile {
   name: string;
   desc: string;
   data: IPrompt[];
-  handleEdit: (promptId: string) => void;
-  handleDelete: (promptId: string) => void;
+  isLoading: boolean;
+  isException: boolean;
 }
 
-const Profile: FC<PropsProfile> = () => {
+const Profile: FC<PropsProfile> = ({ name, desc, data, isException, isLoading }) => {
+
+
   return (
-    <div>Profile</div>
+    <section className='w-full max-w-full flex-start flex-col cursor-default'>
+      <h1 className='head_text text-left'>
+        <span className='orange_gradient'>{name}</span>
+      </h1>
+      <p className='desc text-left max-w-md blue_gradient'>
+        {desc}
+      </p>
+
+      <PromptCardList
+        data={data}
+        isException={isException}
+        isLoading={isLoading}
+        handleTagClick={() => { }}
+      />
+    </section>
   )
 }
 

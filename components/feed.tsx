@@ -5,37 +5,18 @@ import { IPrompt } from '@models/prompt';
 import { useSession } from 'next-auth/react';
 
 import PromptCardList from './prompt-card-list';
+import { useUserPosts } from '@utils/hooks/use-user-posts';
 
 
 const Feed: FC = () => {
   const [searchText, setSearchText] = useState<string>();
-  const [promptsList, setPromptsList] = useState<IPrompt[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isException, setIsException] = useState(false);
-  const { data: session } = useSession();
+  const { isLoading, promptsList, isException } = useUserPosts();
+  console.log(isLoading, promptsList, isException);
 
   const handleSearchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
 
   }, [])
 
-
-  useEffect(() => {
-    const fetchPrompts = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(`/api/prompt?username=${session ? session.user.name : ''}`);
-        const posts = await response.json().finally(() => setIsLoading(false));
-
-        setPromptsList(posts);
-      }
-      catch (err) {
-        setIsLoading(false);
-        setIsException(true);
-      }
-    }
-
-    fetchPrompts();
-  }, [session]);
 
   return (
     <section className="feed">
@@ -60,4 +41,4 @@ const Feed: FC = () => {
   )
 }
 
-export default Feed
+export default Feed;
