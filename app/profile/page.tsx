@@ -10,8 +10,8 @@ const MyProfile = () => {
 
   return (
     <Profile
-      name={`Welcome ${session?.user.name}`}
-      desc="Welcome to your personalized profile page"
+      name="My Profile"
+      desc={`Welcome ${session?.user.name} to your personalized profile page`}
       data={promptsList}
       isLoading={isLoading}
       isException={isException}
