@@ -1,6 +1,6 @@
-import { FC } from 'react'
-import { IPrompt } from '@models/prompt';
 import PromptCardList from '@components/prompt-card-list';
+import { IPrompt } from '@models/prompt';
+import { FC } from 'react';
 
 interface PropsProfile {
   name: string;
@@ -11,7 +11,7 @@ interface PropsProfile {
 }
 
 const Profile: FC<PropsProfile> = ({ name, desc, data, isException, isLoading }) => {
-
+  console.log(name);
 
   return (
     <section className='w-full max-w-full flex-start flex-col cursor-default'>
